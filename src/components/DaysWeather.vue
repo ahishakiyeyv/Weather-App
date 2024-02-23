@@ -1,39 +1,67 @@
 <template>
 <div class="days-tab text-center">
-    <div class="loading">Loading...</div>
-    <ul class="p-0">
-        <li class="li_active">
-            <div class="py-3">icon</div>
-            <div class="py-3">day</div>
-            <div class="py-3">12oc</div>
+    <div v-if="loading " class="loading">Loading...</div>
+    <ul v-else class="p-0">
+        <li v-for="day in forecast" :key="day.date" class="li_active">
+            <div class="py-3"><img :scr="day.iconUrl"/></div>
+            <div class="py-3">{{ getDayName(day.date )}}</div>
+            <div class="py-3">{{ day.temperature }}&deg; C</div>
         </li>
-        <li class="li_active">
-            <div class="py-3">icon</div>
-            <div class="py-3">day</div>
-            <div class="py-3">12oc</div>
-        </li>
-        <li class="li_active">
-            <div class="py-3">icon</div>
-            <div class="py-3">day</div>
-            <div class="py-3">12oc</div>
-        </li>
-        <li class="li_active">
-            <div class="py-3">icon</div>
-            <div class="py-3">day</div>
-            <div class="py-3">12oc</div>
-        </li>
+        
     </ul>
 </div>
 
 </template>
 <script>
-
+import axios from 'axios'
+import moment from 'moment'
 export default {
   data() {
     return{
-
+        forecast:[],
+        loading:true,
+        iconUrl:null
     }
   },
+  props:{
+    cityname:String
+  },
+  mounted(){
+    this.fetchWeatherData();
+  },
+  methods:{
+    async fetchWeatherData(){
+        const apiKey='8331cdef4f10633c84fd856ce65588b0';
+        const city='';
+        const apiUrl=`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
+
+        await axios.get(apiUrl).then(response=>{
+            const forecastData=response.data.list;
+            const filteredData=forecastData.map(item=>{
+                return{
+                    date:moment(item.dt_txt.split(' ')[0]),
+                    temperature:Math.round(item.main.temp),
+                    description: item.weather[0].description,
+                    iconUrl:`https://api.openweathermap.org/img/w/${item.weather[0].icon}.png`,
+                }
+            }).reduce((acc, item )=>{
+                if(acc.some(day=day.date.isSame(item.date,'day'))){
+                    acc.push(item)
+                }
+                return acc;
+            },[]).slice(1,5);
+            console.log(response)
+            this.forecast=filteredData;
+            this.loading=false;
+        }).catch(error=>{
+            console.log(error)
+            this.loading=false;
+        });
+    },
+    getDayName(date){
+        return date.format('ddd');
+    }
+  }
  
 }
 </script>

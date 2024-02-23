@@ -7,10 +7,10 @@
         <input type="text" class="input form-control" v-model="city" placeholder="Enter the city name...">
         
       </div>
-      <button class="btn-search btn btn-primary">Search</button>
+      <button class="btn-search btn btn-primary" @click="searchWeather">Search</button>
     </div>
   </div>
-  <Weather/>
+  <Weather :city="city" v-if="showWeather"/>
 </div>
 </template>
 <script>
