@@ -172,7 +172,7 @@ table{
 }
 th,td{
     font-size:18px;
-    color:#333;
+    color:#f9f9f9;
 
 }
 td{
