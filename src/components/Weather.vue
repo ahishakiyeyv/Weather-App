@@ -1,15 +1,15 @@
 <template>
 <div class="container p-0">
     <div class="d-flex">
-        <div class="card main-div w-100 mt-3 mb-3">
+        <div id="main-div" class="card w-100 mt-3 mb-3">
             <div class="p-3">
                 <h2 class="mb-1 day">Today</h2>
-                <p class="text-light date mb-0">{{ date }}</p>
-                <small>{{ time }}</small>
-                <h2 class="place">{{ name }} <small>{{ country }}</small></h2>
+                <p class="text-light date mb-1">{{ date }}</p>
+                <small class="times">{{ time }}</small>
+                <h2 class="place"><img src="../assets/images/loc.svg" alt="location" class="img-loc">{{ name }} <small>{{ country }}</small></h2>
                 <div class="temp">
                     <h1 class="weather-temp">{{temperature}} &deg; C</h1>
-                    <h2 class="text-light">{{ description }} <img :scr="iconUrl"/></h2>
+                    <h2 class="text-gray">{{ description }} <img :scr="iconUrl"/></h2>
                 </div>
             </div>
         </div>
@@ -101,15 +101,23 @@ body{
     margin:0;
     font-weight:700;
     font-size:4rem;
+    padding:2rem 0;
 }
 h2.mb-1.day{
     font-size:3rem;
     font-weight:400;
 }
-.main-div{
-    border-radius:20px;
+
+.img-loc{
+    height:70px;
+    width:30px;
     color:#fff;
-    background-image:url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.wired.com%2Fstory%2Fthis-heat-is-shaking-the-very-foundation-of-the-ocean-food-web%2F&psig=AOvVaw2ZZiA7kT16rO0NmEvzIPI8&ust=1708731524499000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNCpvJOPwIQDFQAAAAAdAAAAABAE);
+}
+#main-div{
+    border-radius:20px;
+    height:400px;
+    color:#fff;
+    background-image: url("../assets/images/1.jpg");
     background-size:cover;
     background-position: center;
     background-blend-mode: overlay;
@@ -119,6 +127,9 @@ h2.mb-1.day{
 .temp{
     position:absolute;
     bottom:0;
+}
+.times{
+    margin:4rem 0;
 }
 .main-div:hover{
     transform:scale(1.1);
@@ -161,7 +172,7 @@ table{
 }
 th,td{
     font-size:18px;
-    color:#fff;
+    color:#333;
 
 }
 td{
@@ -177,4 +188,5 @@ table,tr:hover{
     transform: scale(0.9);
     transition:transform 0.1s ease;
 }
+
 </style>

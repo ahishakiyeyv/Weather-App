@@ -3,9 +3,9 @@
     <div v-if="loading " class="loading">Loading...</div>
     <ul v-else class="p-0">
         <li v-for="day in forecast" :key="day.date" class="li_active">
-            <div class="py-3"><img :scr="day.iconUrl"/></div>
+            <div class="py-3"><img :src="day.iconUrl"/></div>
             <div class="py-3">{{ getDayName(day.date )}}</div>
-            <div class="py-3">{{ day.temperature }}&deg; C</div>
+            <div class="py-3">{{ day }}&deg; C</div>
         </li>
         
     </ul>
